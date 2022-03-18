@@ -1,0 +1,30 @@
+- name: Configure Proxmox repositories because we're too cheap to pay for a subscription
+#  hosts: vm
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Install lsb_release
+    apt:
+      name: lsb-release
+      install_recommends: no
+      update_cache: yes
+      cache_valid_time: 3600
+
+  - name: Disable Enterprise repository
+    replace:
+      path: /etc/apt/sources.list.d/pve-enterprise.list
+      regexp: '^deb http'
+      replace: '#deb http'      
+
+  - name: Get distribution codename
+    shell: lsb_release -c | cut -f 2
+    register: codename
+
+  - set_fact:
+      codename: "{{ codename.stdout }}"
+
+  - name: Add No-Subscription repository
+    template:
+      src: templates/pve-no-subscription.list.j2
+      dest: /etc/apt/sources.list.d/pve-no-subscription.list

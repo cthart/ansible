@@ -1,0 +1,14 @@
+# Install sudo using su (requires root password)
+#
+- name: Install sudo package using su
+  hosts: all
+  become: yes
+  become_method: su
+  become_user: root
+  tasks:
+
+  - name: Install sudo package
+    apt:
+      name: sudo
+      install_recommends: no
+      update_cache: no

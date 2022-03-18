@@ -1,0 +1,5 @@
+Configure some things on Proxmox servers:
+* no-subscription repository
+* remove nag popup
+
+NB Proxmox install doesn't include sudo installed by default, so you need to install it using base/sudo.yml (and supplying the root password).
