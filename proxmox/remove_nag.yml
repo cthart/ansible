@@ -1,13 +1,11 @@
 # See https://dannyda.com/2020/11/13/how-to-remove-you-do-not-have-a-valid-subscription-for-this-server-from-proxmox-backup-server-pbs-1-0-1/
 # and https://dannyda.com/2020/05/17/how-to-remove-you-do-not-have-a-valid-subscription-for-this-server-from-proxmox-virtual-environment-6-1-2-proxmox-ve-6-1-2-pve-6-1-2/
 - name: Remove "No valid subscription" popup on login to webgui
-#  hosts: vm
-  hosts: all
+  hosts: proxmox
   become: yes
   tasks:
   - replace:
       path: /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
-      regexp: "res === null \\|\\| res === undefined \\|\\| \\!res \\|\\| res\\n\\t\\t\\t.data.status.toLowerCase\\(\\) \\!== 'active'"
+      regexp: "res === null \\|\\|\\s*res === undefined \\|\\|\\s*\\!res \\|\\|\\s*res.data.status.toLowerCase\\(\\) \\!== 'active'"
       replace: "false"
       backup: yes
-
