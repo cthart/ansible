@@ -1,0 +1,13 @@
+# Execute this playbook with -e "package=name" to install the package called name.
+- name: Install a package
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Update cache
+    apt:
+      update_cache: yes
+
+  - name: 
+    apt:
+      name: '{{ package }}'

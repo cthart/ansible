@@ -1,0 +1,9 @@
+---
+- name: Update APT package cache
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Update cache
+    apt:
+      update_cache: yes

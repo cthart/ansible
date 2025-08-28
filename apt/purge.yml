@@ -1,0 +1,11 @@
+- name: Purge removed packages
+  hosts: all
+  tasks:
+  - name: Find removed packages
+    shell: "dpkg -l | grep ^rc | tr -s ' ' | cut -f 2 -d ' ' | tr '\n' ' '"
+    register: purgable
+    changed_when: no
+  - name: Purge removed packages
+    shell: "dpkg --purge {{ purgable.stdout }}"
+    when: purgable.stdout != ""
+    become: yes

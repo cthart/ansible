@@ -1,0 +1,10 @@
+# Execute this playbook with -e "package=name" to remove the package called name.
+- name: Remove a package
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: 
+    apt:
+      name: '{{ package }}'
+      state: absent

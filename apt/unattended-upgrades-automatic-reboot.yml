@@ -1,0 +1,16 @@
+- name: Enable automatic reboot
+  tags: autoreboot
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Configure automatic reboot
+    replace:
+      path: /etc/apt/apt.conf.d/50unattended-upgrades
+      regexp: "{{ item.regexp }}"
+      replace: "{{ item.replace }}"
+    with_items:
+    - { regexp: '^(//)*?Unattended-Upgrade::Automatic-Reboot "false";', replace: 'Unattended-Upgrade::Automatic-Reboot "true";' }
+    - { regexp: '^(//)*?Unattended-Upgrade::Automatic-Reboot-WithUsers "false";', replace: 'Unattended-Upgrade::Automatic-Reboot-WithUsers "true";' }
+    - { regexp: '^(//)*?Unattended-Upgrade::Automatic-Reboot-Time "02:00";', replace: 'Unattended-Upgrade::Automatic-Reboot-Time "02:00";' }
+

@@ -1,0 +1,45 @@
+- name: Enable and configure unattended upgrades
+  tags: autoupgrade
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Install unattended-upgrades packages
+    apt:
+      name: unattended-upgrades
+      install_recommends: no
+      update_cache: yes
+      cache_valid_time: 3600
+
+  - name: Configure unattended-upgrades
+    replace:
+      path: /etc/apt/apt.conf.d/50unattended-upgrades
+      regexp: "{{ item.regexp }}"
+      replace: "{{ item.replace }}"
+    with_items:
+    - { regexp: '^(//)*?\t"\${distro_id}:\${distro_codename}-updates";', replace: '\t"${distro_id}:${distro_codename}-updates";' }
+    - { regexp: '^(//)*?Unattended-Upgrade::MinimalSteps "(.*?)";', replace: 'Unattended-Upgrade::MinimalSteps "true";' }
+    - { regexp: '^(//)*?Unattended-Upgrade::Mail "(.*?)";', replace: 'Unattended-Upgrade::Mail "root";' }
+    - { regexp: '^(//)*?Unattended-Upgrade::MailReport "(.*?)";', replace: 'Unattended-Upgrade::MailReport "only-on-error";' }
+    # MailOnlyOnError is a legacy setting
+    - { regexp: '^(//)*?Unattended-Upgrade::MailOnlyOnError "(.*?)";', replace: 'Unattended-Upgrade::MailOnlyOnError "true";' }
+    - { regexp: '^(//)*?Unattended-Upgrade::Remove-Unused-Kernel-Packages "(.*?)";', replace: 'Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";' }
+    - { regexp: '^(//)*?Unattended-Upgrade::Remove-New-Unused-Dependencies "(.*?)";', replace: 'Unattended-Upgrade::Remove-New-Unused-Dependencies "true";' }
+    - { regexp: '^(//)*?Unattended-Upgrade::Remove-Unused-Dependencies "(.*?)";', replace: 'Unattended-Upgrade::Remove-Unused-Dependencies "true";' }
+
+- name: Enable automatic reboot
+  tags: autoreboot
+  hosts: remote
+  become: yes
+  tasks:
+
+  - name: Configure automatic reboot
+    replace:
+      path: /etc/apt/apt.conf.d/50unattended-upgrades
+      regexp: "{{ item.regexp }}"
+      replace: "{{ item.replace }}"
+    with_items:
+    - { regexp: '^(//)*?Unattended-Upgrade::Automatic-Reboot "false";', replace: 'Unattended-Upgrade::Automatic-Reboot "true";' }
+    - { regexp: '^(//)*?Unattended-Upgrade::Automatic-Reboot-WithUsers "false";', replace: 'Unattended-Upgrade::Automatic-Reboot-WithUsers "true";' }
+    - { regexp: '^(//)*?Unattended-Upgrade::Automatic-Reboot-Time "02:00";', replace: 'Unattended-Upgrade::Automatic-Reboot-Time "02:00";' }
+

@@ -1,0 +1,9 @@
+---
+- name: Autoremove packages
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Autoremove
+    apt:
+      autoremove: yes

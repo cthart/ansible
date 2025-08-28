@@ -1,0 +1,9 @@
+---
+- name: Autoclean APT package cache
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Autoclean
+    apt:
+      autoclean: yes
