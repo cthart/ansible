@@ -1,0 +1,15 @@
+# Install command-not-found
+#
+- name: Install command-not-found
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Install command-not-found package
+    apt:
+      name: command-not-found
+      install_recommends: no
+      update_cache: no
+
+  - name: Update apt-file cache
+    shell: "apt-file update"
