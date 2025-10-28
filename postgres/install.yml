@@ -1,0 +1,15 @@
+- name: Install Postgres from the PGDG APT repository
+  hosts: postgres
+  become: yes
+  tasks:
+
+  - name: Install required packages
+    ansible.builtin.apt:
+      pkg:
+      - gnupg
+      - postgresql-common
+
+  - name: Add PGDG APT repository source
+    ansible.builtin.command:
+      cmd: /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+      creates: /etc/apt/sources.list.d/pgdg.*

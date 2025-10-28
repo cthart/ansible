@@ -1,0 +1,9 @@
+- name: Upgrade Postgres
+  hosts: postgres
+  become: yes
+  tasks:
+
+  - name: Upgrade Postgres
+    ansible.builtin.command:
+      cmd: pg_upgradecluster 12 main -m link
+      creates: /etc/postgresql/17/main
