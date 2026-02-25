@@ -4,8 +4,12 @@
   hosts: proxmox
   become: yes
   tasks:
+  - stat:
+      path: /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
+    register: proxmoxlib
   - replace:
       path: /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
       regexp: "res === null \\|\\|\\s*res === undefined \\|\\|\\s*\\!res \\|\\|\\s*res.data.status.toLowerCase\\(\\) \\!== 'active'"
       replace: "false"
       backup: yes
+    when: proxmoxlib.stat.exists
