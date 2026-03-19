@@ -1,6 +1,6 @@
 - name: Enable automatic reboot
   tags: autoreboot
-  hosts: all
+  hosts: remote
   become: yes
   tasks:
 
