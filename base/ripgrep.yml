@@ -1,0 +1,12 @@
+# Install ripgrep
+#
+- name: Install ripgrep
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Install ripgrep package
+    apt:
+      name: ripgrep
+      install_recommends: no
+      update_cache: no
