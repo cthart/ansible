@@ -1,0 +1,8 @@
+---
+- hosts: acme
+  become: yes
+  tasks:
+
+  - name: Upgrade acme.sh
+    ansible.builtin.command:
+      cmd: /root/.acme.sh/acme.sh --upgrade
