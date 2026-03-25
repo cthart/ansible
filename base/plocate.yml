@@ -1,0 +1,17 @@
+# Install plocate
+#
+- name: Install plocate
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Install plocate package
+    apt:
+      name: plocate
+      install_recommends: no
+      update_cache: no
+
+  - name: Update plocate db
+    systemd_service:
+      name: plocate-updatedb
+      state: started
