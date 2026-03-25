@@ -1,0 +1,12 @@
+# Install curl
+#
+- name: Install curl
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Install curl package
+    apt:
+      name: curl
+      install_recommends: no
+      update_cache: no
