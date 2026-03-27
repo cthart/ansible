@@ -1,0 +1,19 @@
+# Install packages for Postgres core development
+#
+- name: Install packages
+  hosts: all
+  become: yes
+  tasks:
+
+  - apt:
+      name:
+      - build-essential
+      - pkg-config
+      - libicu-dev
+      - bison
+      - flex
+      - libreadline-dev
+      - zlib1g-dev
+      - meson
+      install_recommends: no
+      update_cache: no
