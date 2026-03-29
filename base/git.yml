@@ -1,0 +1,13 @@
+# Install packages for GIT
+#
+- name: Install packages
+  hosts: all
+  become: yes
+  tasks:
+
+  - apt:
+      name:
+      - git
+      - git-extras
+      install_recommends: no
+      update_cache: no
