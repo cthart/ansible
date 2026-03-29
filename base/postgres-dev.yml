@@ -8,7 +8,7 @@
   - apt:
       name:
       - build-essential
-      - pkg-config
+      - pkgconf
       - libicu-dev
       - bison
       - flex
