@@ -1,0 +1,9 @@
+- name: Remove popularity-contest
+  hosts: all
+  become: yes
+  tasks:
+  - apt:
+      name: popularity-contest
+      update_cache: no
+      state: absent
+      purge: yes
