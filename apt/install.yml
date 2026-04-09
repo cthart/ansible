@@ -3,11 +3,6 @@
   hosts: all
   become: yes
   tasks:
-
-  - name: Update cache
-    apt:
+  - apt:
       update_cache: yes
-
-  - name: 
-    apt:
       name: '{{ package }}'

@@ -3,8 +3,6 @@
   hosts: all
   become: yes
   tasks:
-
-  - name: 
-    apt:
+  - apt:
       name: '{{ package }}'
       state: absent

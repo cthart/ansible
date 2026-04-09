@@ -1,7 +1,8 @@
 ---
-- name: Autoremove packages
+- name: Autopurge packages
   hosts: all
   become: yes
   tasks:
   - apt:
       autoremove: yes
+      purge: yes
