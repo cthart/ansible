@@ -1,0 +1,9 @@
+---
+- hosts: acme
+  become: yes
+  tasks:
+
+  - name: Install acme.sh
+    ansible.builtin.shell:
+      cmd: wget -O - https://get.acme.sh | sh
+      creates: "~/.acme.sh/acme.sh"
