@@ -7,3 +7,7 @@
     ansible.builtin.shell:
       cmd: wget -O - https://get.acme.sh | sh
       creates: "~/.acme.sh/acme.sh"
+
+  - name: Change default CA to Let's Encrypt
+    ansible.builtin.shell:
+      cmd: ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt
