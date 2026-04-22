@@ -1,0 +1,12 @@
+---
+- hosts: acme
+  become: yes
+  tasks:
+
+  - name: Uninstall acme.sh
+    ansible.builtin.file:
+      path: ~/.acme.sh
+      state: absent
+
+# TODO: nuke source in .bashrc
+# TODO: nuke cron job
