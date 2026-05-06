@@ -1,0 +1,23 @@
+---
+- name: Install Firefox from Mozilla's APT repository
+  hosts: all
+  become: yes
+  tasks:
+
+  - get_url:
+      url: https://packages.mozilla.org/apt/repo-signing-key.gpg
+      dest: /etc/apt/keyrings/packages.mozilla.org.asc
+      checksum: "md5:6acd97d045f8d8ef7516c3241c088a09"
+
+  - copy:
+      src: files/mozilla.sources
+      dest: /etc/apt/sources.list.d/mozilla.sources
+
+  - copy:
+      src: files/mozilla
+      dest: /etc/apt/preferences.d/mozilla
+
+  - apt:
+      name: firefox
+      update_cache: yes
+
