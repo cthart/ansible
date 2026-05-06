@@ -1,3 +1,4 @@
+# https://support.mozilla.org/en-US/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions-recommended
 ---
 - name: Install Firefox from Mozilla's APT repository
   hosts: all
@@ -7,7 +8,7 @@
   - get_url:
       url: https://packages.mozilla.org/apt/repo-signing-key.gpg
       dest: /etc/apt/keyrings/packages.mozilla.org.asc
-      checksum: "md5:6acd97d045f8d8ef7516c3241c088a09"
+      checksum: "md5:6acd97d045f8d8ef7516c3241c088a09" # checksum computed on a known-good install
 
   - copy:
       src: files/mozilla.sources
