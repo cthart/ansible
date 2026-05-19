@@ -17,7 +17,7 @@
       regexp: "{{ item.regexp }}"
       replace: "{{ item.replace }}"
     with_items:
-    - { regexp: '^(//)*?\t"\${distro_id}:\${distro_codename}-updates";', replace: '\t"${distro_id}:${distro_codename}-updates";' }
+    - { regexp: '^Unattended-Upgrade::Origins-Pattern {([\S\s]*?)\n};', replace: 'Unattended-Upgrade::Origins-Pattern {\n\t"origin=*";\n};' }
     - { regexp: '^(//)*?Unattended-Upgrade::MinimalSteps "(.*?)";', replace: 'Unattended-Upgrade::MinimalSteps "true";' }
     - { regexp: '^(//)*?Unattended-Upgrade::Mail "(.*?)";', replace: 'Unattended-Upgrade::Mail "root";' }
     - { regexp: '^(//)*?Unattended-Upgrade::MailReport "(.*?)";', replace: 'Unattended-Upgrade::MailReport "only-on-error";' }
